@@ -13,7 +13,8 @@
     "test": "hardhat test",
     "compile": "hardhat compile",
     "deploy": "ts-node ./scripts/Ballot/deployment.ts",
-    "query:proposals": "ts-node ./scripts/Ballot/queryProposals.ts"
+    "query:proposals": "ts-node ./scripts/Ballot/queryProposals.ts",
+    "give-voting-rights": "ts-node ./scripts/Ballot/giveVotingRights.ts"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.0",
