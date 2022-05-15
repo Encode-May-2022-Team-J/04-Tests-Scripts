@@ -32,6 +32,16 @@ async function main() {
     signer
   ) as Ballot;
 
+  console.log("Voting results");
+  for (let i = 0; i < 3; i++) {
+    const proposal = await ballotContract.proposals(i);
+    console.log(
+      `${ethers.utils.parseBytes32String(
+        proposal.name
+      )}: ${proposal.voteCount.toNumber()} `
+    );
+  }
+
   const winningProposal = await ballotContract.winningProposal();
   console.log(`Winning proposal index: ${winningProposal.toNumber()}`);
 
