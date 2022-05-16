@@ -11,14 +11,17 @@ async function main() {
   const ballotAddress = process.argv[2];
   if (process.argv.length < 4) throw new Error("Proposal missing");
   const proposal = process.argv[3];
-  const voterWallet = new ethers.Wallet(
-    process.env.VOTER_PRIVATE_KEY ?? EXPOSED_KEY
-  );
-  console.log(`Using address ${voterWallet.address}`);
+
+  const wallet =
+    process.env.MNEMONIC && process.env.MNEMONIC.length > 0
+      ? ethers.Wallet.fromMnemonic(process.env.MNEMONIC)
+      : new ethers.Wallet(process.env.PRIVATE_KEY ?? EXPOSED_KEY);
+  console.log(`Using address ${wallet.address}`);
   const provider = ethers.providers.getDefaultProvider("ropsten", {
     etherscan: process.env.ETHERSCAN_API_KEY,
   });
-  const signer = voterWallet.connect(provider);
+
+  const signer = wallet.connect(provider);
   const balanceBN = await signer.getBalance();
   const balance = Number(ethers.utils.formatEther(balanceBN));
   console.log(`Wallet balance ${balance}`);
@@ -33,7 +36,7 @@ async function main() {
     ballotJson.abi,
     signer
   ) as Ballot;
-  const voter = await ballotContract.voters(voterWallet.address);
+  const voter = await ballotContract.voters(wallet.address);
   if (voter.voted) {
     throw new Error("Caller has already voted");
   }
