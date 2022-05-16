@@ -16,6 +16,7 @@
     "query:proposals": "ts-node ./scripts/Ballot/queryProposals.ts",
     "give-voting-rights": "ts-node ./scripts/Ballot/giveVotingRights.ts",
     "vote:cast": "ts-node ./scripts/Ballot/castVote.ts",
+    "vote:delegate": "ts-node ./scripts/Ballot/delegateVote.ts",
     "query:voting-result": "ts-node ./scripts/Ballot/queryVotingResult.ts"
   },
   "devDependencies": {
